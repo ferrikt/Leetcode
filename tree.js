@@ -62,30 +62,68 @@ class BST {
     return node.data;
   }
 
+
   remove(data) {
-    const removeNode = function(node, data) {
-      if (node === null) {
-        return null;
-      }
+    const removeNode = function(node,data) {
+      if (node == null) {
+       return null;
+     }
+        if (node.data === data) {
+          if (node.left===null && node.right===null) {
+            node=null;
+            return;
+          }
+          if (node.left===null) {
+            return node.right;
+          }
+          if (node.right===null) {
+            return node.left;
+          }
+          if (node.right!=null && node.left!=null) {
+            let tempNode = node.right;
+            while(tempNode.left) {
+              tempNode = tempNode.left;
+            }
+            node.data = tempNode.data;
+            node.right =  removeNode(tempNode,node.right.data);
+            return node;
+          }
 
-      if (data === node.data) {
-        if (node.left === null && node.right === null) {
-          node=null;
-          return null;
         }
-
-        if (node.right === null) {
-          return node.left;
-        }
-
-        if (node.left === null) {
-          return node.right;
-        }
-
+        else if (data < node.data) {
+        node.left = removeNode(node.left, data);
+        return node;
+      } else {
+        node.right = removeNode(node.right, data);
+        return node;
       }
     }
-    this.root = removeNode(this.root, data);
+
+     this.root = removeNode(this.root, data);
   }
+
+  InOrderTraversal(node=this.root){
+
+    node.left && this.InOrderTraversal(node.left);
+    console.log(node.data);
+    node.right && this.InOrderTraversal(node.right);
+  }
+
+
+  PreOrderTraversal(node=this.root){
+
+    console.log(node.data);
+    node.left && this.PreOrderTraversal(node.left);
+
+    node.right && this.PreOrderTraversal(node.right);
+  }
+
+  PostOrderTraversal(node=this.root){
+    node.left && this.PostOrderTraversal(node.left);
+    node.right && this.PostOrderTraversal(node.right);
+    console.log(node.data);
+  }
+
 
   findMinHeight(node=this.root){
     if (node===null) {
@@ -115,10 +153,23 @@ bst.add(23);
 bst.add(4);
 bst.add(90);
 bst.add(89);
+bst.add(91);
+
+//bst.remove(89);
+
+bst.PostOrderTraversal();
+
+bst.remove(89);
+bst.remove(51);
+
+console.log('-------');
 
 
-console.log(`Tree minumum is ${bst.findMin()}`);
-console.log(`Tree maximum is ${bst.findMax()}`);
+bst.PostOrderTraversal();
 
 
-console.log(bst.findMinHeight());
+//console.log(`Tree minumum is ${bst.findMin()}`);
+//console.log(`Tree maximum is ${bst.findMax()}`);
+
+
+//console.log(bst.findMinHeight());

@@ -143,6 +143,28 @@ class BST {
           return right + 1;
       };
     }
+
+    IterativeInOrderTraversal(root=this.root) {
+      const stack = [];
+
+      while(true) {
+        if (root) {
+          stack.push(root);
+          root = root.left;
+
+        }
+        else if (!root) {
+          if (stack.length===0) {
+            break
+          };
+          let poppedStock = stack.pop();
+          debugger;
+          console.log(poppedStock.data);
+          root=poppedStock.right;
+
+        }
+      }
+    }
 }
 
 const bst = new BST();
@@ -157,15 +179,17 @@ bst.add(91);
 
 //bst.remove(89);
 
-bst.PostOrderTraversal();
+//bst.PostOrderTraversal();
 
-bst.remove(89);
-bst.remove(51);
+//bst.remove(89);
+//bst.remove(51);
 
+
+bst.InOrderTraversal();
 console.log('-------');
 
 
-bst.PostOrderTraversal();
+bst.IterativeInOrderTraversal();
 
 
 //console.log(`Tree minumum is ${bst.findMin()}`);

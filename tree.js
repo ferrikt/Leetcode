@@ -124,6 +124,21 @@ class BST {
     console.log(node.data);
   }
 
+  PreOrderTraversalIterative(root = this.root) {
+    let stack = [];
+
+    stack.push(root);
+
+    while(stack.length) {
+      let node = stack.pop();
+      console.log(node.data);
+
+      node.right && stack.push(node.right);
+      node.left && stack.push(node.left);
+    }
+  }
+
+
 
   findMinHeight(node=this.root){
     if (node===null) {
@@ -163,20 +178,6 @@ class BST {
     }
 
 
-    PreOrderTraversalIterative(root = this.root) {
-      let stack = [];
-
-      stack.push(root);
-
-      while(stack.length) {
-        let node = stack.pop();
-        console.log(node.data);
-
-        node.right && stack.push(node.right);
-        node.left && stack.push(node.left);
-      }
-
-    }
 
 }
 

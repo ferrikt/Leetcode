@@ -108,20 +108,19 @@ class BST {
     console.log(node.data);
     node.right && this.InOrderTraversal(node.right);
   }
-
-
-  PreOrderTraversal(node=this.root){
-
-    console.log(node.data);
-    node.left && this.PreOrderTraversal(node.left);
-
-    node.right && this.PreOrderTraversal(node.right);
-  }
-
   PostOrderTraversal(node=this.root){
     node.left && this.PostOrderTraversal(node.left);
     node.right && this.PostOrderTraversal(node.right);
     console.log(node.data);
+  }
+
+
+
+
+  PreOrderTraversal(node=this.root){
+    console.log(node.data);
+    node.left && this.PreOrderTraversal(node.left);
+    node.right && this.PreOrderTraversal(node.right);
   }
 
   PreOrderTraversalIterative(root = this.root) {

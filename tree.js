@@ -102,41 +102,6 @@ class BST {
      this.root = removeNode(this.root, data);
   }
 
-  InOrderTraversal(node=this.root){
-
-    node.left && this.InOrderTraversal(node.left);
-    console.log(node.data);
-    node.right && this.InOrderTraversal(node.right);
-  }
-  PostOrderTraversal(node=this.root){
-    node.left && this.PostOrderTraversal(node.left);
-    node.right && this.PostOrderTraversal(node.right);
-    console.log(node.data);
-  }
-
-
-
-
-  PreOrderTraversal(node=this.root){
-    console.log(node.data);
-    node.left && this.PreOrderTraversal(node.left);
-    node.right && this.PreOrderTraversal(node.right);
-  }
-
-  PreOrderTraversalIterative(root = this.root) {
-    let stack = [];
-
-    stack.push(root);
-
-    while(stack.length) {
-      let node = stack.pop();
-      console.log(node.data);
-
-      node.right && stack.push(node.right);
-      node.left && stack.push(node.left);
-    }
-  }
-
 
 
   findMinHeight(node=this.root){
@@ -156,6 +121,14 @@ class BST {
       };
     }
 
+    /*In-order: left-node-right*/
+
+    InOrderTraversal(node=this.root){
+      node.left && this.InOrderTraversal(node.left);
+      console.log(node.data);
+      node.right && this.InOrderTraversal(node.right);
+    }
+
     IterativeInOrderTraversal(root=this.root) {
       let stack = [];
 
@@ -173,6 +146,56 @@ class BST {
           root = node.right;
         }
 
+      }
+    }
+
+
+    /*Pre-order: node-left-right */
+
+    PreOrderTraversal(node=this.root){
+      console.log(node.data);
+      node.left && this.PreOrderTraversal(node.left);
+      node.right && this.PreOrderTraversal(node.right);
+    }
+
+    PreOrderTraversalIterative(root = this.root) {
+      let stack = [];
+
+      stack.push(root);
+
+      while(stack.length) {
+        let node = stack.pop();
+        console.log(node.data);
+
+        node.right && stack.push(node.right);
+        node.left && stack.push(node.left);
+      }
+    }
+
+
+    /*Post-order: left-right-node*/
+
+    PostOrderTraversal(node = this.root){
+      node.left && this.PostOrderTraversal(node.left);
+      node.right && this.PostOrderTraversal(node.right);
+      console.log(node.data);
+    }
+
+    PostOrderTraversalIterative(node = this.root){
+      if (!node) return;
+      const stack1 = [];
+      const stack2 = [];
+      stack1.push(node);
+      while(stack1.length>0) {
+        node = stack1.pop();
+        stack2.push(node);
+        node.left && stack1.push(node.left);
+        node.right && stack1.push(node.right);
+      }
+
+      while(stack2.length>0) {
+        const node = stack2.pop();
+        console.log(node.data);
       }
     }
 
@@ -198,21 +221,14 @@ bst.add(91);
 //bst.remove(51);
 
 
-bst.InOrderTraversal();
-console.log('-------');
-
-
-bst.IterativeInOrderTraversal();
-console.log('-------');
-bst.InOrderTraversal();
 
 console.log('-------');
-console.log('Preorder traversal');
-bst.PreOrderTraversal();
+console.log('Postorder traversal');
+bst.PostOrderTraversal();
 
 
-console.log('Preorder traversal iterative');
-bst.PreOrderTraversalIterative();
+console.log('Postorder traversal iterative');
+bst.PostOrderTraversalIterative();
 
 
 

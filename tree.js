@@ -130,13 +130,11 @@ class BST {
       return -1;
     }
 
-    debugger;
     let left = this.findMinHeight(node.left);
     console.log('left='+left);
 
     let right = this.findMinHeight(node.right);
 
-    debugger;
     if (left < right) {
           return left + 1;
       } else {
@@ -145,26 +143,41 @@ class BST {
     }
 
     IterativeInOrderTraversal(root=this.root) {
-      const stack = [];
+      let stack = [];
 
       while(true) {
+
         if (root) {
           stack.push(root);
-          root = root.left;
-
+          root = root.left
         }
-        else if (!root) {
-          if (stack.length===0) {
-            break
-          };
-          let poppedStock = stack.pop();
-          debugger;
-          console.log(poppedStock.data);
-          root=poppedStock.right;
+        else {
+          if (stack.length===0) break;
 
+          let node = stack.pop();
+          console.log(node.data);
+          root = node.right;
         }
+
       }
     }
+
+
+    PreOrderTraversalIterative(root = this.root) {
+      let stack = [];
+
+      stack.push(root);
+
+      while(stack.length) {
+        let node = stack.pop();
+        console.log(node.data);
+
+        node.right && stack.push(node.right);
+        node.left && stack.push(node.left);
+      }
+
+    }
+
 }
 
 const bst = new BST();
@@ -190,6 +203,17 @@ console.log('-------');
 
 
 bst.IterativeInOrderTraversal();
+console.log('-------');
+bst.InOrderTraversal();
+
+console.log('-------');
+console.log('Preorder traversal');
+bst.PreOrderTraversal();
+
+
+console.log('Preorder traversal iterative');
+bst.PreOrderTraversalIterative();
+
 
 
 //console.log(`Tree minumum is ${bst.findMin()}`);

@@ -26,34 +26,35 @@ test('0001. Two Sum', () => {
  * @return {string}
  */
 const findWinner = votes => {
-  //approach - use dictionary-map
-  // time complexity O(N logN)
+  //approach - use hashtable
+  // time complexity O(N)
   //space complexity O(M)
 
   if (!votes) return null;
 
-  let vinners = new Map();
+  const winners = [];
 
-  //create a data structure - name->amount of occurances
+  // fill hashtable
   for (let i = 0; i < votes.length; i++) {
-    if (vinners.has(votes[i])) {
-      let val = vinners.get(votes[i]);
-      val++;
-      vinners.set(votes[i], val);
-    } else {
-      vinners.set(votes[i], 1);
+    let value = winners[votes[i]] ? winners[votes[i]] + 1 : 1;
+
+    winners[votes[i]] = value;
+  }
+
+  let max = 0;
+  let result = null;
+
+  //find maximum in hashtable 0(N)
+
+  for (let elem in winners) {
+    const value = winners[elem];
+    if (value > max) {
+      max = value;
+      result = elem;
     }
   }
 
-  //select the max amount of occurances O(N logN)
-
-  let sortedWinners = new Map(
-    [...vinners.entries()].sort((a, b) => b[1] - a[1])
-  );
-
-  const topWinner = sortedWinners.entries().next().value[0];
-
-  return topWinner;
+  return result;
 };
 
 const test = () => {
@@ -69,5 +70,6 @@ const test = () => {
 };
 
 console.log(findWinner(["A", "B", "A", "C", "D", "B", "A"]));
+console.log(findWinner(["B", "B", "B", "C", "D", "B", "A"]));
 
-test();
+//test();
